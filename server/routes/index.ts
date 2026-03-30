@@ -1,0 +1,10 @@
+export { default as authRoutes } from './auth';
+export { default as postRoutes } from './posts';
+export { default as lostfoundRoutes } from './lostfound';
+export { default as marketplaceRoutes } from './marketplace';
+export { default as messageRoutes } from './messages';
+export { default as notificationRoutes } from './notifications';
+export { default as clubRoutes } from './clubs';
+export { default as adminRoutes } from './admin';
+export { default as userRoutes } from './users';
+export { default as eventRoutes } from './events';
