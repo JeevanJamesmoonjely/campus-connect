@@ -104,30 +104,32 @@ const HOST = '0.0.0.0';
 const httpServer = createServer(app);
 initSocket(httpServer);
 
-httpServer.listen(PORT, HOST, () => {
-    const interfaces = os.networkInterfaces();
-    const addresses: string[] = [];
-    for (const k in interfaces) {
-        for (const k2 in interfaces[k]!) {
-            const address = interfaces[k]![k2];
-            if ((address.family === 'IPv4' || (address.family as number | string) === 4) && !address.internal) {
-                addresses.push(address.address);
+if (process.env.VERCEL !== '1') {
+    httpServer.listen(PORT, HOST, () => {
+        const interfaces = os.networkInterfaces();
+        const addresses: string[] = [];
+        for (const k in interfaces) {
+            for (const k2 in interfaces[k]!) {
+                const address = interfaces[k]![k2];
+                if ((address.family === 'IPv4' || (address.family as number | string) === 4) && !address.internal) {
+                    addresses.push(address.address);
+                }
             }
         }
-    }
-    
-    console.log('--------------------------------------------------');
-    console.log(`Server running on:`);
-    console.log(`- Local:   http://localhost:${PORT}`);
-    addresses.forEach(addr => {
-        console.log(`- Network: http://${addr}:${PORT}`);
+        
+        console.log('--------------------------------------------------');
+        console.log(`Server running on:`);
+        console.log(`- Local:   http://localhost:${PORT}`);
+        addresses.forEach(addr => {
+            console.log(`- Network: http://${addr}:${PORT}`);
+        });
+        console.log('--------------------------------------------------');
+        console.log(`Frontend accessible (usually) on port 5173:`);
+        addresses.forEach(addr => {
+            console.log(`- Network: http://${addr}:5173`);
+        });
+        console.log('--------------------------------------------------');
     });
-    console.log('--------------------------------------------------');
-    console.log(`Frontend accessible (usually) on port 5173:`);
-    addresses.forEach(addr => {
-        console.log(`- Network: http://${addr}:5173`);
-    });
-    console.log('--------------------------------------------------');
-});
+}
 
 export default app;
