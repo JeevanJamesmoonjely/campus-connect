@@ -278,7 +278,7 @@ export const EventsPage = () => {
     const { user } = useAuthStore();
     const [selectedCategory, setSelectedCategory] = useState('All');
     const [searchQuery, setSearchQuery] = useState('');
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
     const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
     const [showEventForm, setShowEventForm] = useState(false);
     const [isCreating, setIsCreating] = useState(false);
